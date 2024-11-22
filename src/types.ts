@@ -1,7 +1,7 @@
 export interface IPizza {
   id: string;
   title: string;
-  urlImage: string;
+  urlImage?: string;
   price: number;
 }
 
