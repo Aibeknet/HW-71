@@ -6,14 +6,14 @@ const ToolBar = () => {
     <>
       <nav className="navbar navbar-expand-lg bg-primary">
         <div className="container">
-          <NavLink to="/"><span className="navbar-brand mb-0 text-white fs-1">Turtle Pizza Admin</span></NavLink>
+          <NavLink to="/admin"><span className="navbar-brand mb-0 text-white fs-1">Turtle Pizza Admin</span></NavLink>
           <div className="ms-auto">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <NavLink className="nav-link" to="/">Dishes</NavLink>
+                <NavLink className="nav-link" to="/admin/dishes">Dishes</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/orders">Orders</NavLink>
+                <NavLink className="nav-link" to="/admin/orders">Orders</NavLink>
               </li>
             </ul>
           </div>

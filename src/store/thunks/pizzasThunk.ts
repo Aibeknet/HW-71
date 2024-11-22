@@ -6,25 +6,30 @@ import { updateOrder } from '../slices/orderPizzaSlice.ts';
 export const fetchAllPizzas = createAsyncThunk<IPizza[], void>(
   'pizzas/fetchAllPizzas',
   async (_arg, thunkAPI) => {
-    const response: {data: PizzasList | null} = await axiosApi('pizzas.json');
-    const pizzasList = response.data;
-    console.log(pizzasList);
+    try {
+      const response: {data: PizzasList | null} = await axiosApi('pizzas.json');
+      const pizzasList = response.data;
 
-    if (pizzasList === null) {
+      console.log("Fetched pizzas:", pizzasList); // Логирование данных
+
+      if (pizzasList === null) {
+        return [];
+      }
+
+      const pizzas: PizzasList = pizzasList;
+      const newPizzas = Object.keys(pizzasList).map(pizza => {
+        return {
+          ...pizzas[pizza],
+          id: pizza
+        };
+      });
+
+      thunkAPI.dispatch(updateOrder(newPizzas));
+      return newPizzas;
+    } catch (error) {
+      console.error("Error fetching pizzas:", error);
       return [];
     }
-
-    const pizzas: PizzasList = pizzasList;
-
-    const newPizzas =  Object.keys(pizzasList).map(pizza => {
-      return {
-        ...pizzas[pizza],
-        id: pizza
-      };
-    });
-
-    thunkAPI.dispatch(updateOrder(newPizzas));
-    return newPizzas;
   }
 );
 

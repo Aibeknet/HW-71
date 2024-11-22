@@ -1,7 +1,7 @@
 import { ApiPizza, IPizza } from '../../types';
-import {  createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createPizza, deleteOnePizza, editPizza, fetchAllPizzas, getOnePizzaById } from '../thunks/pizzasThunk';
 import { RootState } from '../../app/store.ts';
-import { createPizza, deleteOnePizza, editPizza, fetchAllPizzas, getOnePizzaById } from '../thunks/pizzasThunk.ts';
 
 interface PizzasState {
   pizzas: IPizza[];
@@ -37,56 +37,56 @@ export const pizzasSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllPizzas.pending, state => {
+      .addCase(fetchAllPizzas.pending, (state) => {
         state.isFetchLoading = true;
       })
       .addCase(fetchAllPizzas.fulfilled, (state, action: PayloadAction<IPizza[]>) => {
+        console.log("Data received from fetchAllPizzas:", action.payload);
         state.pizzas = action.payload;
         state.isFetchLoading = false;
       })
-      .addCase(fetchAllPizzas.rejected, state => {
+      .addCase(fetchAllPizzas.rejected, (state) => {
         state.isFetchLoading = false;
       })
-      .addCase(deleteOnePizza.pending, (state, {meta}) => {
+      .addCase(deleteOnePizza.pending, (state, { meta }) => {
         state.isDeleteLoading = meta.arg;
       })
       .addCase(deleteOnePizza.fulfilled, (state) => {
         state.isDeleteLoading = false;
       })
-      .addCase(deleteOnePizza.rejected, state => {
+      .addCase(deleteOnePizza.rejected, (state) => {
         state.isDeleteLoading = false;
       })
       .addCase(createPizza.pending, (state) => {
-        state.isCreateLoading= true;
+        state.isCreateLoading = true;
       })
       .addCase(createPizza.fulfilled, (state) => {
         state.isCreateLoading = false;
       })
-      .addCase(createPizza.rejected, state => {
+      .addCase(createPizza.rejected, (state) => {
         state.isCreateLoading = false;
       })
       .addCase(getOnePizzaById.pending, (state) => {
-        state.isFetchOnePizzaLoading= true;
+        state.isFetchOnePizzaLoading = true;
         state.onePizza = null;
       })
       .addCase(getOnePizzaById.fulfilled, (state, action: PayloadAction<ApiPizza | null>) => {
         state.isFetchOnePizzaLoading = false;
         state.onePizza = action.payload;
       })
-      .addCase(getOnePizzaById.rejected, state => {
+      .addCase(getOnePizzaById.rejected, (state) => {
         state.isFetchOnePizzaLoading = false;
       })
       .addCase(editPizza.pending, (state) => {
-        state.isEditLoading= true;
+        state.isEditLoading = true;
       })
       .addCase(editPizza.fulfilled, (state) => {
         state.isEditLoading = false;
         state.onePizza = null;
       })
-      .addCase(editPizza.rejected, state => {
+      .addCase(editPizza.rejected, (state) => {
         state.isEditLoading = false;
-      })
-    ;
+      });
   }
 });
 

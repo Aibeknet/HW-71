@@ -25,7 +25,7 @@ export interface ICustomer {
 
 export interface IOrderAlteration {
   customer: ICustomer,
-  dishes: PizzaOrder[],
+  pizzas: PizzaOrder[],
 }
 
 export interface IOrderAPI {
