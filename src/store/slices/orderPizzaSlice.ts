@@ -8,7 +8,7 @@ interface PizzaOrderState {
 }
 
 const initialState: PizzaOrderState = {
-  basketPizzas: []
+  basketPizzas: [],
 };
 
 export const selectOrderPizzas = (state: RootState) => state.order.basketPizzas;
